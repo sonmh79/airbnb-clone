@@ -18,15 +18,23 @@ class ItemAdmin(admin.ModelAdmin):
     pass
 
 
+# 어드민 안에 새로운 어드민 추가(ForeignKey로 연결)
+class PhotoInline(admin.TabularInline):
+    model = models.Photo
+
+
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
 
     """Room Admin Definition"""
 
+    # 인라인 어드민 리스트
+    inlines = (PhotoInline,)
+
     fieldsets = (
         (
             "Basic Info",
-            {"fields": ("name", "description", "country", "address", "price")},
+            {"fields": ("name", "description", "country", "city", "address", "price")},
         ),
         ("Spaces", {"fields": ("guests", "beds", "bedrooms", "baths")}),
         ("Times", {"fields": ("check_in", "check_out", "instant_book")}),
@@ -66,6 +74,9 @@ class RoomAdmin(admin.ModelAdmin):
         "host__username",
     ]
     filter_horizontal = ("amenities", "facilities", "house_rules")
+
+    # 아이템이 많을 때 검색 가능
+    raw_id_fields = ("host",)
 
     def count_amenities(self, obj):
         return obj.amenities.count()

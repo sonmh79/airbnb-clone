@@ -110,3 +110,8 @@ class Room(core_models.TimeStampedModel):
         for review in all_reviews:
             all_ratings += review.rating_average()
         return all_ratings / len(all_reviews)
+
+    # 상위 저장 메소드를 인터셉트해서 오버라이팅함
+    def save(self, *args, **kwargs):
+        self.city = str.capitalize(self.city)
+        super().save(*args, **kwargs)
