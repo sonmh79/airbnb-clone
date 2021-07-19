@@ -1,4 +1,3 @@
-from django.core import paginator
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from . import models
@@ -7,10 +6,10 @@ from . import models
 def all_rooms(request):
     page = request.GET.get("page")
     room_lists = models.Room.objects.all()
-    paginator = Paginator(room_lists, 10)
+    paginator = Paginator(room_lists, 10, orphans=3)
     rooms = paginator.get_page(page)
     return render(
         request,
         "rooms/home.html",
-        {"rooms": rooms},
+        {"page": rooms},
     )
