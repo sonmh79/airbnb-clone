@@ -1,15 +1,14 @@
-from django.shortcuts import render
-from django.core.paginator import Paginator
+from django.shortcuts import redirect, render
+from django.views.generic import ListView
 from . import models
 
 # Create your views here.
-def all_rooms(request):
-    page = request.GET.get("page")
-    room_lists = models.Room.objects.all()
-    paginator = Paginator(room_lists, 10, orphans=3)
-    rooms = paginator.get_page(page)
-    return render(
-        request,
-        "rooms/home.html",
-        {"page": rooms},
-    )
+class HomeView(ListView):
+
+    """Home View Definition"""
+
+    model = models.Room
+    template_name = "rooms/home.html"
+    paginate_by = 10
+    paginate_orphans = 3
+    page_kwarg = "page"
