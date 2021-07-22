@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.base import Model
 from django.db.models.fields import CharField
 from django.utils import tree
+from django.urls import reverse
 from django_countries.fields import CountryField
 from core import models as core_models
 from users import models as user_models
@@ -112,6 +113,9 @@ class Room(core_models.TimeStampedModel):
                 all_ratings += review.rating_average()
             return round(all_ratings / len(all_reviews), 2)
         return 0
+
+    def get_absolute_url(self):
+        return reverse("rooms:details", kwargs={"pk": self.pk})
 
     # 상위 저장 메소드를 인터셉트해서 오버라이팅함
     def save(self, *args, **kwargs):
