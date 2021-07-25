@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.shortcuts import redirect, render
 from django.views.generic import ListView
 from django.urls import reverse
+from django_countries import countries
+
 from . import models
 
 # Create your views here.
@@ -33,3 +35,14 @@ def room_details(request, pk):
         # return redirect("/")
         # return redirect(reverse("core:home"))
         raise Http404()
+
+
+def search(request):
+    city = request.GET.get("city")
+    city = str.capitalize(city)
+    room_types = models.RoomType.objects.all()
+    s_room_type = int(request.GET.get("room_type", 0))
+    s_country = request.GET.get("country")
+    form = {"city": city, "countries": countries, "room_types": room_types}
+    choice = {"s_room_type": s_room_type, "s_country": s_country}
+    return render(request, "search.html", {**form, **choice})
