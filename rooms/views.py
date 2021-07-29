@@ -110,7 +110,7 @@ class SearchView(View):
                 return render(
                     request, "rooms/search.html", {"form": form, "rooms": rooms}
                 )
-            else:
-                form = forms.SearchForm()
+        else:
+            form = forms.SearchForm()
 
-            return render(request, "rooms/search.html", {"form": form})
+        return render(request, "rooms/search.html", {"form": form})
