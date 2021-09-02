@@ -18,6 +18,15 @@ class User(AbstractUser):
         (GENDER_OTHER, "Other"),
     )
 
+    LOGIN_EMAIL = "email"
+    LOGIN_GITHUB = "github"
+    LOGIN_KAKAO = "kakao"
+    LOGIN_CHOICES = (
+        (LOGIN_EMAIL, "Email"),
+        (LOGIN_KAKAO, "Kakao"),
+        (LOGIN_GITHUB, "Github"),
+    )
+
     LANGUAGE_KOREAN = "kr"
     LANGUAGE_ENGLISH = "en"
 
@@ -35,3 +44,6 @@ class User(AbstractUser):
     language = models.CharField(choices=LANGUAGE_CHOICES, max_length=2, blank=True)
     currency = models.CharField(choices=CURRENCY_CHOICES, max_length=2, blank=True)
     superhost = models.BooleanField(default=False)
+    login_method = models.CharField(
+        max_length=50, choices=LOGIN_CHOICES, default=LOGIN_EMAIL
+    )

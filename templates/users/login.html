@@ -6,6 +6,7 @@ Welcome Login !
 {% block search %}
 {% endblock search %}
 {% block content %}
+{% include 'partials/github_signup.html' %}
 <form method="POST" action="{% url 'users:login' %}">
     {% csrf_token %}
     {{form.as_p}}
