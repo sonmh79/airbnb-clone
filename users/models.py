@@ -47,3 +47,4 @@ class User(AbstractUser):
     login_method = models.CharField(
         max_length=50, choices=LOGIN_CHOICES, default=LOGIN_EMAIL
     )
+    email_verified = models.BooleanField(default=False)

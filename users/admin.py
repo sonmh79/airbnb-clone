@@ -45,6 +45,8 @@ class CustomUserAdmin(UserAdmin):
         "superhost",
         "is_staff",
         "is_superuser",
+        "login_method",
+        "email_verified",
     )
 
 
