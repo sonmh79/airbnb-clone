@@ -16,7 +16,7 @@ class HomeView(ListView):
     # return object_lists
     model = models.Room
     template_name = "rooms/home.html"
-    paginate_by = 10
+    paginate_by = 12
     paginate_orphans = 3
     page_kwarg = "page"
     context_object_name = "rooms"

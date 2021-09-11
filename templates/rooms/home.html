@@ -1,23 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {{now}}
+    <div class="container mx-auto">
+        <div class="rounded-xl mx-auto bg-gray-800  mt-32 mb-24 bg-cover bg-center" style="background-image: url(https://cdn.pixabay.com/photo/2021/07/18/18/38/waterfalls-6476336__480.jpg);height: 50vh;"></div>
+        <div class="flex flex-wrap">
+            {% for room in rooms %}        
+                {% include 'partials/room_card.html' with room=room %}        
+            {% endfor %}
+        </div>
+    
+        <div class="flex items-center justify-center mx-auto container mb-4">
+            {% if page_obj.has_previous %}
+                <a href="?page={{page_obj.previous_page_number}}" class="text-teal-500">
+                    <i class="fas fa-arrow-left fa-lg"></i>
+                </a>
+            {% endif %}
 
-    {% for room in rooms %}
-        <a href="{% url "rooms:details" room.pk %}" >
-            <h1>{{room.name}} / ${{room.price}}</h1>
-        </a>
-    {% endfor %}
+            <span class="mx-3 font-medium text-lg">{{page_obj.number}} of {{page_obj.paginator.num_pages}}</span>
 
-    <h5>
-        {% if page_obj.has_previous %}
-            <a href="?page={{page_obj.previous_page_number}}"> Previous </a>
-        {% endif %}
-        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-        {% if page_obj.has_next %}
-            <a href="?page={{page_obj.next_page_number}}"> Next </a>
-        {% endif %}
-    </h5>
+            {% if page_obj.has_next  %}
+                <a href="?page={{page_obj.next_page_number}}" class="text-teal-500">
+                    <i class="fas fa-arrow-right fa-lg"></i>
+                </a>
+            {% endif %}
+
+        </div>
+
+    </div>
 
     
 {% endblock %}

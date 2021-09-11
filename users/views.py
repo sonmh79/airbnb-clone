@@ -34,11 +34,11 @@ class SignUpView(FormView):
     template_name = "users/signup.html"
     form_class = forms.SignUpForm
     success_url = reverse_lazy("core:home")
-    initial = {
+    """initial = {
         "first_name": "minhyeok",
         "last_name": "Son",
         "email": "sonmh79@naver.com",
-    }
+    }"""
 
     def form_valid(self, form):
         form.save()

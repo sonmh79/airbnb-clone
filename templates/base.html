@@ -5,19 +5,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>{% block page_title %}{% endblock page_title %}</title>
 </head>
-<body>
-    {% include "partials/nav.html" %}
-    {% block search %}
-    <header>
-        <form method = "get" action="{% url 'rooms:search' %}">
-            <input name="city" type="text" placeholder="Search by City">
-        </form>
-    </header>
-    {% endblock search %}
+<body class="text-gray-800 mt-24 font-light">
+    <div class="flex items-center justify-between p-4 bg-white fixed w-full inset-0 h-20">
+        <a href="{% url 'core:home' %}">
+            <img class ="w-12" src="{% static 'image/logo.png' %}" alt="logo">
+        </a>
+        {% block search %}
+        <header>
+            <form method = "get" action="{% url 'rooms:search' %}">
+                <input class="border p-2 rounded-2xl border-gray-300 placeholder-gray-900 text-sm w-80 px-5 shadow hover:shadow-lg focus:outline-none" name="city" type="text" placeholder="Search by City">
+            </form>
+        </header>
+        {% endblock search %}
+        {% include "partials/nav.html" %}
+    </div>
+    
+    
     {% block content %}
     {% endblock %}
+    {% include 'partials/footer.html' %}
 </body>
-</html></html>
+</html>

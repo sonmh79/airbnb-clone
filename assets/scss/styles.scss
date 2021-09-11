@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
+.nav-link {
+  @apply mr-8 border-b-2 border-white h-full;
+  a {
+    @apply py-10 px-5;
+  }
+  &:hover {
+    @apply hover:border-gray-500;
+  }
+}
+.btn {
+  @apply text-center rounded-sm py-5 font-light text-lg w-full;
+}
+
+input {
+  @apply rounded-sm py-5 font-light text-lg w-full text-left border border-gray-600 px-5;
+  &:focus {
+    @apply outline-none border-gray-500;
+  }
+}
+form {
+  input {
+    @apply mb-3;
+  }
+}
+
 @tailwind utilities;
