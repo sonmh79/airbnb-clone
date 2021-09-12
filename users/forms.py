@@ -25,7 +25,7 @@ class LoginForm(forms.Form):
             self.add_error("email", forms.ValidationError("User does not exist"))
 
 
-class SignUpForm(UserCreationForm):
+class SignUpForm(forms.ModelForm):
     class Meta:
         model = models.User
         fields = ("first_name", "last_name", "email")
@@ -41,6 +41,16 @@ class SignUpForm(UserCreationForm):
     password1 = forms.CharField(
         widget=forms.PasswordInput(attrs={"placeholder": "Confirm Password"})
     )
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        try:
+            models.User.objects.get(email=email)
+            raise forms.ValidationError(
+                "That email is already taken", code="existing_user"
+            )
+        except models.User.DoesNotExist:
+            return email
 
     def clean_password1(self):
         password = self.cleaned_data.get("password")

@@ -5,7 +5,7 @@
         <div class="rounded-xl mx-auto bg-gray-800  mt-32 mb-24 bg-cover bg-center" style="background-image: url(https://cdn.pixabay.com/photo/2021/07/18/18/38/waterfalls-6476336__480.jpg);height: 50vh;"></div>
         <div class="flex flex-wrap">
             {% for room in rooms %}        
-                {% include 'partials/room_card.html' with room=room %}        
+                {% include 'mixins/room_card.html' with room=room %}        
             {% endfor %}
         </div>
     
