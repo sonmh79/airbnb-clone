@@ -1,8 +1,8 @@
 
 <ul class="flex h-full items-center">
     {% if user.is_authenticated %}
-        <li><a href="{% url 'users:logout' %}">Log out</a></li>
-        <h1>Hello {{user.username}}</h1>
+        <li class="nav-link"><a href="{{user.get_absolute_url}}">Profile</a></li>
+        <li class="nav-link"><a href="{% url 'users:logout' %}">Log out</a></li>
     {% else %}
         <li class="nav-link "><a href="{% url 'users:login' %}">Log in</a></li>
         <li class="nav-link"><a href="{% url 'users:signup' %}">Sign up</a></li>
