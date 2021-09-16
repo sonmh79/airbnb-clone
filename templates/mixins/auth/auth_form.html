@@ -1,4 +1,4 @@
-<form method="POST" > <!--action 생략 4가능-->
+<form method="POST" class="w-full" enctype="multipart/form-data"> <!--action 생략 4가능 / enctype="multipart/form-data" 이 방식은 <form> 요소가 파일이나 이미지를 서버로 전송할 때 주로 사용함-->
     {% csrf_token %}
     {% if form.non_filed_errors %}
         {% for error in form.non_filed_errors %}

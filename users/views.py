@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render, reverse
 from django.urls import reverse_lazy
-from django.views.generic import View, FormView, DetailView
+from django.views.generic import View, FormView, DetailView, UpdateView
+from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth import authenticate, login, logout
 from django.core.files.base import ContentFile
 from django.contrib import messages
@@ -190,3 +191,41 @@ class UserProfileView(DetailView):
 
     model = models.User
     context_object_name = "user_obj"
+
+
+class UpdateProfileView(UpdateView):
+
+    model = models.User
+    template_name = "users/update-profile.html"
+    fields = (
+        "first_name",
+        "last_name",
+        "avatar",
+        "gender",
+        "bio",
+        "birthdate",
+        "language",
+        "currency",
+    )
+
+    def get_object(self, queryset=None):  # 수정하기 원하는 객체 리턴
+        return self.request.user
+
+    def get_form(self, form_class=None):  # 장고 폼에서 html 속성(input,label 등) 수정 방법
+        form = super().get_form(form_class=form_class)
+        form.fields["first_name"].widget.attrs = {"placeholder": "First name"}
+        form.fields["last_name"].widget.attrs = {"placeholder": "Last name"}
+        return form
+
+
+class UpdatePasswordView(PasswordChangeView):
+    template_name = "users/update-password.html"
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=form_class)
+        form.fields["old_password"].widget.attrs = {"placeholder": "Current password"}
+        form.fields["new_password1"].widget.attrs = {"placeholder": "New password"}
+        form.fields["new_password2"].widget.attrs = {
+            "placeholder": "Confirm new password"
+        }
+        return form
