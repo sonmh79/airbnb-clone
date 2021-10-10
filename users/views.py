@@ -201,7 +201,7 @@ class UserProfileView(DetailView):
     context_object_name = "user_obj"
 
 
-class UpdateProfileView(mixins.LoggedinOnlyView, SuccessMessageMixin, UpdateView):
+class UpdateProfileView(mixins.LoggedInOnlyView, SuccessMessageMixin, UpdateView):
 
     model = models.User
     template_name = "users/update-profile.html"
@@ -232,7 +232,7 @@ class UpdateProfileView(mixins.LoggedinOnlyView, SuccessMessageMixin, UpdateView
 
 class UpdatePasswordView(
     mixins.EmailLoginOnlyView,
-    mixins.LoggedinOnlyView,
+    mixins.LoggedInOnlyView,
     SuccessMessageMixin,
     PasswordChangeView,
 ):

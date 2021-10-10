@@ -25,5 +25,5 @@ class LoggedOutOnlyView(UserPassesTestMixin):
         return redirect("core:home")
 
 
-class LoggedinOnlyView(LoginRequiredMixin):
+class LoggedInOnlyView(LoginRequiredMixin):
     login_url = reverse_lazy("users:login")
