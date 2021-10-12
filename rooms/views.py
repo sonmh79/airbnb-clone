@@ -1,5 +1,6 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core import paginator
+from django.db.models import fields
 from django.http.response import Http404
 from django.urls.base import reverse_lazy
 from django.utils import timezone
@@ -7,7 +8,7 @@ from django.shortcuts import redirect, render, reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import ListView, View, UpdateView, DetailView
+from django.views.generic import ListView, View, UpdateView, DetailView, FormView
 from django.urls import reverse
 from django_countries import countries
 from django.core.paginator import Paginator
@@ -190,3 +191,17 @@ class EditPhotoView(user_mixins.LoggedInOnlyView, SuccessMessageMixin, UpdateVie
     def get_success_url(self):
         room_pk = self.kwargs.get("room_pk")
         return reverse("rooms:photos", kwargs={"pk": room_pk})
+
+
+class AddPhotoView(user_mixins.LoggedInOnlyView, FormView):
+
+    model = models.Photo
+    template_name = "rooms/photo_create.html"
+    fields = ("caption", "file")
+    form_class = forms.CreatePhotoForm
+
+    def form_valid(self, form):
+        pk = self.kwargs.get("pk")
+        form.save(pk)
+        messages.success(self.request, "Photo Uploaded")
+        return redirect(reverse("rooms:photos", kwargs={"pk": pk}))
