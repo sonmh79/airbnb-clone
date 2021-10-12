@@ -125,7 +125,11 @@ class Room(core_models.TimeStampedModel):
         super().save(*args, **kwargs)
 
     def first_photo(self):
-        return self.photos.all()[0].file.url
+        try:
+            (photo,) = self.photos.all()[:1]
+            return photo.file.url
+        except ValueError:
+            return None
 
     def get_next_four_photos(self):
         photos = self.photos.all()[1:5]

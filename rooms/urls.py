@@ -17,6 +17,7 @@ urlpatterns = [
     ),
     path("<int:pk>/photos/add", room_views.AddPhotoView.as_view(), name="add-photo"),
     path("search/", room_views.SearchView.as_view(), name="search"),
+    path("create/", room_views.CreateRoomView.as_view(), name="create"),
 ]
 
 app_name = "rooms"
