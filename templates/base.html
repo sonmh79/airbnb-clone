@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +18,8 @@
         {% include 'partials/messages.html' %}
         <header>
             <form method = "get" action="{% url 'rooms:search' %}">
-                <input class="border p-2 rounded-2xl border-gray-300 placeholder-gray-900 text-sm w-80 px-5 shadow hover:shadow-lg focus:outline-none" name="city" type="text" placeholder="Search by City">
+                <input class="border p-2 rounded-2xl border-gray-300 placeholder-gray-900 text-sm w-80 px-5 shadow hover:shadow-lg focus:outline-none" name="city" type="text" 
+                placeholder="{% trans 'Search by City' %}">
             </form>
         </header>
         {% endblock search %}
