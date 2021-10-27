@@ -53,7 +53,7 @@ class Command(BaseCommand):
             for a in amenities:
                 num = random.randint(0, 15)
                 if num % 2 == 0:
-                    room.amenities.add(a)
+                    room.amenities.add(a)  # ManytoMany Field
             for f in facilities:
                 num = random.randint(0, 15)
                 if num % 2 == 0:
